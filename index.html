@@ -25,10 +25,13 @@
       --muted: #66707A;
       --border: #E3E6E8;
       --shadow: 0 20px 55px rgba(32, 36, 42, 0.14);
+      --card-shadow: 0 10px 25px rgba(32, 36, 42, 0.13);
       --morning: #247A4A;
       --morning-dark: #1A623A;
-      --wellness: #386F9E;
-      --wellness-dark: #2B587D;
+      --afternoon: #386F9E;
+      --afternoon-dark: #2B587D;
+      --individual: #5E6AA8;
+      --absence: #6B7E72;
     }
 
     * {
@@ -53,6 +56,10 @@
 
     button {
       font: inherit;
+    }
+
+    [hidden] {
+      display: none !important;
     }
 
     .screen {
@@ -86,8 +93,8 @@
     }
 
     .home-card {
-      width: min(100%, 780px);
-      padding: 34px 42px 42px;
+      width: min(100%, 900px);
+      padding: 28px 36px 34px;
       border: 1px solid rgba(188, 64, 67, 0.08);
       border-radius: 30px;
       background: var(--white);
@@ -97,79 +104,135 @@
 
     .home-logo {
       display: block;
-      width: min(58vw, 300px);
-      max-height: 220px;
-      margin: 0 auto 8px;
+      width: min(48vw, 265px);
+      max-height: 185px;
+      margin: 0 auto 6px;
       object-fit: contain;
     }
 
     h1 {
-      margin: 4px 0 0;
-      font-size: clamp(2.15rem, 5vw, 3.35rem);
+      margin: 2px 0 0;
+      font-size: clamp(2rem, 4.7vw, 3.15rem);
       line-height: 1.08;
       letter-spacing: -0.035em;
     }
 
     .welcome-copy {
-      max-width: 600px;
-      margin: 17px auto 29px;
+      max-width: 650px;
+      margin: 14px auto 23px;
       color: var(--muted);
-      font-size: clamp(1.08rem, 2.7vw, 1.35rem);
-      line-height: 1.5;
+      font-size: clamp(1.05rem, 2.5vw, 1.28rem);
+      line-height: 1.45;
     }
 
     .button-grid {
       display: grid;
-      gap: 20px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
     }
 
-    .session-button {
-      width: 100%;
-      min-height: 110px;
-      padding: 20px 26px;
-      border: 0;
+    .option-card {
+      display: flex;
+      min-width: 0;
+      min-height: 190px;
+      padding: 0;
+      overflow: hidden;
+      border: 1px solid var(--border);
       border-radius: 22px;
-      color: var(--white);
+      background: var(--white);
+      color: var(--ink);
+      box-shadow: var(--card-shadow);
       cursor: pointer;
       touch-action: manipulation;
-      box-shadow: 0 10px 24px rgba(32, 36, 42, 0.17);
-      transition: transform 120ms ease, filter 120ms ease;
+      text-align: left;
+      transition: transform 120ms ease, box-shadow 120ms ease, filter 120ms ease;
     }
 
-    .session-button:active {
+    .option-card:active {
       transform: scale(0.985);
-      filter: brightness(0.94);
+      filter: brightness(0.97);
+      box-shadow: 0 6px 16px rgba(32, 36, 42, 0.15);
     }
 
-    .session-button.morning {
+    .option-art {
+      position: relative;
+      flex: 0 0 42%;
+      min-width: 150px;
+      overflow: hidden;
+      background: #EEF1F3;
+    }
+
+    .option-art img {
+      width: 100%;
+      height: 100%;
+      min-height: 188px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .option-art.generated {
+      display: grid;
+      place-items: center;
+      color: var(--white);
+    }
+
+    .option-art.generated.morning {
       background: linear-gradient(145deg, var(--morning), var(--morning-dark));
     }
 
-    .session-button.wellness {
-      background: linear-gradient(145deg, var(--wellness), var(--wellness-dark));
+    .option-art.generated.afternoon {
+      background: linear-gradient(145deg, var(--afternoon), var(--afternoon-dark));
     }
 
-    .button-time,
-    .button-program {
+    .time-icon {
+      display: grid;
+      place-items: center;
+      width: 96px;
+      height: 96px;
+      border: 3px solid rgba(255, 255, 255, 0.76);
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.13);
+      font-size: 3.4rem;
+      line-height: 1;
+    }
+
+    .option-copy {
+      display: flex;
+      flex: 1;
+      flex-direction: column;
+      justify-content: center;
+      min-width: 0;
+      padding: 22px 22px 20px;
+    }
+
+    .option-title {
       display: block;
-    }
-
-    .button-time {
-      font-size: clamp(1.4rem, 3.8vw, 1.9rem);
+      font-size: clamp(1.3rem, 2.7vw, 1.72rem);
       font-weight: 800;
-      line-height: 1.2;
+      line-height: 1.17;
     }
 
-    .button-program {
-      margin-top: 5px;
-      font-size: clamp(1.12rem, 3vw, 1.38rem);
-      font-weight: 650;
+    .option-subtitle {
+      display: block;
+      margin-top: 8px;
+      color: var(--muted);
+      font-size: clamp(0.97rem, 2.1vw, 1.1rem);
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .availability-note {
+      min-height: 24px;
+      margin: 19px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.4;
     }
 
     .privacy-note {
-      margin: 25px 0 0;
+      margin: 10px 0 0;
       color: var(--muted);
-      font-size: 0.94rem;
+      font-size: 0.9rem;
     }
 
     /* PREPARING SCREEN */
@@ -330,7 +393,7 @@
       font-size: 1.15rem;
     }
 
-    @media (max-width: 560px) {
+    @media (max-width: 700px) {
       #homeScreen {
         padding: 0;
         background: var(--white);
@@ -338,18 +401,31 @@
 
       .home-card {
         min-height: 100%;
-        padding: 24px 22px 30px;
+        padding: 22px 18px 28px;
         border: 0;
         border-radius: 0;
         box-shadow: none;
       }
 
       .home-logo {
-        width: min(62vw, 250px);
+        width: min(58vw, 235px);
       }
 
-      .session-button {
-        min-height: 96px;
+      .button-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .option-card {
+        min-height: 150px;
+      }
+
+      .option-art {
+        flex-basis: 40%;
+        min-width: 130px;
+      }
+
+      .option-art img {
+        min-height: 148px;
       }
 
       .form-header {
@@ -361,37 +437,65 @@
       }
     }
 
-    @media (orientation: landscape) and (max-height: 700px) {
+    @media (orientation: landscape) and (max-height: 760px) {
       .home-card {
-        width: min(100%, 980px);
-        padding: 16px 30px 22px;
+        width: min(100%, 1050px);
+        padding: 14px 24px 18px;
       }
 
       .home-logo {
-        width: min(25vw, 220px);
-        max-height: 150px;
+        width: min(23vw, 190px);
+        max-height: 120px;
       }
 
       h1 {
-        font-size: 2rem;
+        font-size: 1.95rem;
       }
 
       .welcome-copy {
-        margin: 8px auto 15px;
+        margin: 7px auto 13px;
         font-size: 1rem;
       }
 
       .button-grid {
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
+        gap: 13px;
       }
 
-      .session-button {
-        min-height: 82px;
+      .option-card {
+        min-height: 138px;
+      }
+
+      .option-art img {
+        min-height: 136px;
+      }
+
+      .time-icon {
+        width: 76px;
+        height: 76px;
+        font-size: 2.7rem;
+      }
+
+      .option-copy {
+        padding: 16px;
+      }
+
+      .option-title {
+        font-size: 1.3rem;
+      }
+
+      .option-subtitle {
+        margin-top: 5px;
+        font-size: 0.94rem;
+      }
+
+      .availability-note {
+        margin-top: 10px;
+        font-size: 0.9rem;
       }
 
       .privacy-note {
-        margin-top: 13px;
+        margin-top: 5px;
+        font-size: 0.82rem;
       }
     }
 
@@ -418,20 +522,52 @@
       <h1 id="appTitle">AGD Client Check In</h1>
 
       <p class="welcome-copy">
-        Welcome! Please select the group session you are signing into.
+        Welcome! Please choose one of the options below to continue.
       </p>
 
       <div class="button-grid">
-        <button class="session-button morning" type="button" data-form="morning">
-          <span class="button-time">8:30a–11:30a</span>
-          <span class="button-program">IOP / MHDT</span>
+        <button id="morningCard" class="option-card" type="button" data-form="morning">
+          <span class="option-art generated morning" aria-hidden="true">
+            <span class="time-icon">☀</span>
+          </span>
+          <span class="option-copy">
+            <span class="option-title">Morning Group</span>
+            <span class="option-subtitle">8:30 AM–11:30 AM · IOP / MHDT</span>
+          </span>
         </button>
 
-        <button class="session-button wellness" type="button" data-form="afternoon">
-          <span class="button-time">12:00p–1:00p</span>
-          <span class="button-program">Wellness</span>
+        <button id="afternoonCard" class="option-card" type="button" data-form="afternoon">
+          <span class="option-art generated afternoon" aria-hidden="true">
+            <span class="time-icon">◐</span>
+          </span>
+          <span class="option-copy">
+            <span class="option-title">Afternoon Group</span>
+            <span class="option-subtitle">12:00 PM–1:30 PM · Wellness</span>
+          </span>
+        </button>
+
+        <button id="individualCard" class="option-card" type="button" data-form="individual">
+          <span class="option-art">
+            <img src="individual-session.png" alt="">
+          </span>
+          <span class="option-copy">
+            <span class="option-title">Individual Session</span>
+            <span class="option-subtitle">Check in for your scheduled appointment</span>
+          </span>
+        </button>
+
+        <button id="absenceCard" class="option-card" type="button" data-form="absence">
+          <span class="option-art">
+            <img src="planned-absence.png" alt="">
+          </span>
+          <span class="option-copy">
+            <span class="option-title">Planned Absence</span>
+            <span class="option-subtitle">Tell us about an upcoming absence</span>
+          </span>
         </button>
       </div>
+
+      <p id="availabilityNote" class="availability-note" aria-live="polite"></p>
 
       <p class="privacy-note">
         Please protect your privacy by returning to this screen when finished.
@@ -491,17 +627,31 @@
   <script>
     const FORMS = {
       morning: {
-        title: "8:30a–11:30a IOP / MHDT",
+        title: "Morning Group Check-In",
         url: "https://forms.office.com/Pages/ResponsePage.aspx?id=JTi6z33DuEK5DhZJchYzFw1uidru66JMp7tJxJNBC7VUMjVLSktSUklFVUxaTFZLTzk0SzNFQkZHQy4u&embed=true"
       },
       afternoon: {
-        title: "12:00p–1:30p Wellness",
+        title: "Afternoon Group Check-In",
         url: "https://forms.office.com/Pages/ResponsePage.aspx?id=JTi6z33DuEK5DhZJchYzFw1uidru66JMp7tJxJNBC7VURENDRjVZVVRDSEdESFhJUVU3T1hKQU1FTy4u&embed=true"
+      },
+      individual: {
+        title: "Individual Session Check-In",
+        url: "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=JTi6z33DuEK5DhZJchYzFw1uidru66JMp7tJxJNBC7VUMUNHSjZITFVDWFpYMDY3WU5FSzhKVkZXRS4u&embed=true"
+      },
+      absence: {
+        title: "Planned Absence",
+        url: "https://forms.cloud.microsoft/Pages/ResponsePage.aspx?id=JTi6z33DuEK5DhZJchYzFw1uidru66JMp7tJxJNBC7VUQU44OFo0NTQ1UDI3UFowQ0VPSEhaSVJaRy4u&embed=true"
       }
     };
 
     const INACTIVITY_MS = 5 * 60 * 1000;
     const PREPARING_SCREEN_MS = 900;
+
+    // Time windows use the iPad's local time.
+    // Morning is available before 11:45 AM.
+    // Afternoon and Individual become available at 11:45 AM.
+    const SWITCH_HOUR = 11;
+    const SWITCH_MINUTE = 45;
 
     const homeScreen = document.getElementById("homeScreen");
     const loadingScreen = document.getElementById("loadingScreen");
@@ -509,6 +659,10 @@
     const formFrame = document.getElementById("formFrame");
     const formTitle = document.getElementById("formTitle");
     const returningOverlay = document.getElementById("returningOverlay");
+    const morningCard = document.getElementById("morningCard");
+    const afternoonCard = document.getElementById("afternoonCard");
+    const individualCard = document.getElementById("individualCard");
+    const availabilityNote = document.getElementById("availabilityNote");
 
     let inactivityTimer = null;
     let loadingTimer = null;
@@ -520,6 +674,24 @@
       });
 
       screen.classList.add("active");
+    }
+
+    function minutesSinceMidnight(date) {
+      return (date.getHours() * 60) + date.getMinutes();
+    }
+
+    function updateAvailableOptions() {
+      const now = new Date();
+      const switchTime = (SWITCH_HOUR * 60) + SWITCH_MINUTE;
+      const afterSwitch = minutesSinceMidnight(now) >= switchTime;
+
+      morningCard.hidden = afterSwitch;
+      afternoonCard.hidden = !afterSwitch;
+      individualCard.hidden = !afterSwitch;
+
+      availabilityNote.textContent = afterSwitch
+        ? "Morning Group check-in is closed for today."
+        : "Afternoon Group and Individual Session check-in will appear at 11:45 AM.";
     }
 
     function openForm(formKey) {
@@ -566,6 +738,7 @@
         formFrame.src = "";
         returningOverlay.classList.remove("show");
         currentScreen = "home";
+        updateAvailableOptions();
         showOnly(homeScreen);
         window.scrollTo(0, 0);
       }, isAutomatic ? 500 : 250);
@@ -601,6 +774,7 @@
     window.addEventListener("focus", registerActivity);
 
     window.addEventListener("pageshow", () => {
+      updateAvailableOptions();
       if (currentScreen !== "home") {
         returnHome(false);
       }
@@ -609,10 +783,16 @@
     document.addEventListener("visibilitychange", () => {
       if (document.hidden) {
         clearTimers();
-      } else if (currentScreen === "form") {
-        restartInactivityTimer();
+      } else {
+        updateAvailableOptions();
+        if (currentScreen === "form") {
+          restartInactivityTimer();
+        }
       }
     });
+
+    updateAvailableOptions();
+    window.setInterval(updateAvailableOptions, 60 * 1000);
   </script>
 </body>
 </html>
