@@ -792,19 +792,35 @@
       return (date.getHours() * 60) + date.getMinutes();
     }
 
-    function updateAvailableOptions() {
-      const now = new Date();
-      const switchTime = (SWITCH_HOUR * 60) + SWITCH_MINUTE;
-      const afterSwitch = minutesSinceMidnight(now) >= switchTime;
+   function updateAvailableOptions() {
+    const now = new Date();
+    const currentTime = minutesSinceMidnight(now);
 
-      morningCard.hidden = afterSwitch;
-      afternoonCard.hidden = !afterSwitch;
-      individualCard.hidden = !afterSwitch;
+    const morningEnd = (SWITCH_HOUR * 60) + SWITCH_MINUTE; // 11:45 AM
+    const wellnessEnd = (13 * 60) + 30; // 1:30 PM
 
-      availabilityNote.textContent = afterSwitch
-        ? "Morning Group check-in is closed for today."
-        : "Wellness Group and Individual Session check-in will appear at 11:45 AM.";
+    // Morning: before 11:45
+    morningCard.hidden = currentTime >= morningEnd;
+
+    // Wellness: 11:45 - 1:30
+    afternoonCard.hidden = currentTime < morningEnd || currentTime >= wellnessEnd;
+
+    // Individual: after 11:45
+    individualCard.hidden = currentTime < morningEnd;
+
+    // Planned Absence stays visible (don't hide it)
+
+    if (currentTime < morningEnd) {
+        availabilityNote.textContent =
+            "Wellness Group and Individual Session check-in will appear at 11:45 AM.";
+    } else if (currentTime < wellnessEnd) {
+        availabilityNote.textContent =
+            "Morning Group check-in is closed for today.";
+    } else {
+        availabilityNote.textContent =
+            "Wellness Group check-in is closed for today.";
     }
+}
 
     function openForm(formKey) {
       const selectedForm = FORMS[formKey];
